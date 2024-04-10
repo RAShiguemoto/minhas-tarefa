@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Tarefa {
@@ -19,9 +21,11 @@ public class Tarefa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "Descrição da tarefa é obrigatória!")
 	@Column(nullable = false, length = 150)
 	private String descricao;
 	
+	@NotNull(message = "Status da tarefa é obrigatório!")
 	@Enumerated(EnumType.STRING)
 	private TarefaStatus tarefaStatus;
 	
@@ -31,10 +35,12 @@ public class Tarefa {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@NotNull(message = "Categoria da tarefa é obrigatória!")
 	private TarefaCategoria categoria;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@NotNull(message = "Usuário da tarefa é obrigatório!")
 	private Usuario usuario;
 
 	public Long getId() {

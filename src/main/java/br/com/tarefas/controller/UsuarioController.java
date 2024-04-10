@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tarefas.model.Usuario;
 import br.com.tarefas.repository.UsuarioRepository;
+import jakarta.validation.Valid;
 
 @RestController
 public class UsuarioController {
@@ -24,7 +25,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/usuarios")
-	public Usuario salvarUsuario(@RequestBody Usuario usuario) {
+	public Usuario salvarUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}
 }
