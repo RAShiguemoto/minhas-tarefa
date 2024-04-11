@@ -12,30 +12,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tarefas.model.Tarefa;
 import br.com.tarefas.repository.TarefaRepository;
+import br.com.tarefas.services.TarefaService;
 
 @RestController
 public class TarefaController {
 
 	@Autowired
-	private TarefaRepository tarefaRepository;
+	private TarefaService service;
 	
 	@GetMapping("/tarefas")
 	public List<Tarefa> listarTarefas() {
-		return tarefaRepository.findAll();
+		return service.getTodasTarefas();
 	}
 	
 	@GetMapping("/tarefas/{id}")
 	public Tarefa recuperarTarefa(@PathVariable Long tarefaId) {
-		return tarefaRepository.findById(tarefaId).orElse(null);
+		return service.getTarefasPorId(tarefaId);
 	}
 	
 	@PostMapping("/tarefas")
 	public Tarefa salvarNovaTarefa(@RequestBody Tarefa tarefa) {
-		return tarefaRepository.save(tarefa);
+		return service.salvarTarefa(tarefa);
 	}
 	
 	@DeleteMapping("/tarefa/{id}")
 	public void deletarTarefa(@PathVariable Long tarefaId) {
-		tarefaRepository.deleteById(tarefaId);
+		service.deleteById(tarefaId);
 	}
 }
