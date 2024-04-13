@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.tarefas.exception.TarefaStatusException;
 import br.com.tarefas.model.Tarefa;
 import br.com.tarefas.model.TarefaStatus;
 import br.com.tarefas.repository.TarefaRepository;
@@ -40,6 +41,30 @@ public class TarefaService {
 		Tarefa tarefa = getTarefaPorId(id);
 		
 		tarefa.setTarefaStatus(TarefaStatus.EM_ANDAMENTO);
+		
+		tarefaRepository.save(tarefa);
+		return tarefa;
+	}
+	
+	public Tarefa concluirTarefaPorId(Long id) {
+		Tarefa tarefa = getTarefaPorId(id);
+		
+		if (TarefaStatus.CANCELADA.equals(tarefa.getTarefaStatus()))
+			throw new TarefaStatusException();
+		
+		tarefa.setTarefaStatus(TarefaStatus.CONCLUIDA);
+		
+		tarefaRepository.save(tarefa);
+		return tarefa;
+	}
+	
+	public Tarefa cancelarTarefaPorId(Long id) {
+		Tarefa tarefa = getTarefaPorId(id);
+		
+		if (TarefaStatus.CONCLUIDA.equals(tarefa.getTarefaStatus()))
+			throw new TarefaStatusException();
+		
+		tarefa.setTarefaStatus(TarefaStatus.CANCELADA);
 		
 		tarefaRepository.save(tarefa);
 		return tarefa;
