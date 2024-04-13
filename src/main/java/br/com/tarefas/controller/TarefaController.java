@@ -27,7 +27,7 @@ public class TarefaController {
 	
 	@GetMapping("/tarefas/{id}")
 	public Tarefa recuperarTarefa(@PathVariable Long tarefaId) {
-		return service.getTarefasPorId(tarefaId);
+		return service.getTarefaPorId(tarefaId);
 	}
 	
 	@PostMapping("/tarefas")

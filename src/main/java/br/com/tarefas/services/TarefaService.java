@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.tarefas.model.Tarefa;
+import br.com.tarefas.model.TarefaStatus;
 import br.com.tarefas.repository.TarefaRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -23,7 +24,7 @@ public class TarefaService {
 		return tarefaRepository.findByDescricaoLike("%" + descricao + "%");
 	}
 	
-	public Tarefa getTarefasPorId(Long id) {
+	public Tarefa getTarefaPorId(Long id) {
 		return tarefaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
 	}
 	
@@ -33,5 +34,14 @@ public class TarefaService {
 	
 	public void deleteById(Long id) {
 		tarefaRepository.deleteById(id);
+	}
+	
+	public Tarefa iniciarTarefaPorId(Long id) {
+		Tarefa tarefa = getTarefaPorId(id);
+		
+		tarefa.setTarefaStatus(TarefaStatus.EM_ANDAMENTO);
+		
+		tarefaRepository.save(tarefa);
+		return tarefa;
 	}
 }
