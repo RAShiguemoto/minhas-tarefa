@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import br.com.tarefas.controller.TarefaController;
 import br.com.tarefas.controller.response.TarefaResponse;
 import br.com.tarefas.model.Tarefa;
+import br.com.tarefas.model.TarefaStatus;
 
 @Component
 public class TarefaModelAssembler implements RepresentationModelAssembler<Tarefa, EntityModel<TarefaResponse>> {
@@ -23,7 +24,18 @@ public class TarefaModelAssembler implements RepresentationModelAssembler<Tarefa
 
 		EntityModel<TarefaResponse> tarefaModel = EntityModel.of(tarefaResponse,
 				WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(TarefaController.class).recuperarTarefa(tarefaResponse.getId())).withSelfRel(),
-				WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(TarefaController.class).listarTarefas()).withRel("Listar Tarefas"));
+				WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(TarefaController.class).listarTarefas()).withRel("tarefas"));
+		
+		if (TarefaStatus.EM_ANDAMENTO.equals(tarefa.getTarefaStatus())) {
+			tarefaModel.add(
+					WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(TarefaController.class).concluirTarefa(tarefa.getId())).withRel("concluir"),
+					WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(TarefaController.class).cancelarTarefa(tarefa.getId())).withRel("cancelar"));
+		}
+		
+		if (TarefaStatus.ABERTO.equals(tarefa.getTarefaStatus())) {
+			tarefaModel.add(
+					WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(TarefaController.class).iniciarTarefa(tarefa.getId())).withRel("iniciar"));
+		}
 		
 		return tarefaModel;
 	}
