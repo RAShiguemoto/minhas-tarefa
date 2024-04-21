@@ -27,7 +27,7 @@ public class Tarefa {
 	
 	@NotNull(message = "Status da tarefa é obrigatório!")
 	@Enumerated(EnumType.STRING)
-	private TarefaStatus tarefaStatus;
+	private TarefaStatus tarefaStatus = TarefaStatus.ABERTO;
 	
 	private LocalDate dataEntrega;
 	

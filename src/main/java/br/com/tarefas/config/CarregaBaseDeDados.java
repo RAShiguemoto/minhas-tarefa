@@ -44,7 +44,6 @@ public class CarregaBaseDeDados {
 			Tarefa tarefa = new Tarefa();
 			tarefa.setDescricao("Aprender Spring Boot");
 			tarefa.setDataEntrega(LocalDate.now().plusDays(1));
-			tarefa.setTarefaStatus(TarefaStatus.ABERTO);
 			tarefa.setVisivel(true);
 			tarefa.setCategoria(categoria);
 			tarefa.setUsuario(usuario);
@@ -53,7 +52,6 @@ public class CarregaBaseDeDados {
 			Tarefa tarefa2 = new Tarefa();
 			tarefa2.setDescricao("Aprender RestFull HATEOAS");
 			tarefa2.setDataEntrega(LocalDate.now().plusDays(1));
-			tarefa2.setTarefaStatus(TarefaStatus.ABERTO);
 			tarefa2.setVisivel(true);
 			tarefa2.setCategoria(categoria);
 			tarefa2.setUsuario(usuario);
