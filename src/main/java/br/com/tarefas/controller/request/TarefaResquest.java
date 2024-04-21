@@ -2,16 +2,25 @@ package br.com.tarefas.controller.request;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class TarefaResquest {
 
 	private Long id;
 
+	@NotBlank(message = "Descrição é obrigatória!")
 	private String descricao;
 
+	@NotNull(message = "Data Entrega é obrigatória!")
+	@FutureOrPresent(message = "Data Entrega deve ser uma data futura!")
 	private LocalDate dataEntrega;
 
+	@NotNull(message = "Categoria é obrigatória!")
 	private Long categoriaId;
 
+	@NotNull(message = "Usuário é obrigatório!")
 	private Long usuarioId;
 
 	public Long getId() {

@@ -26,6 +26,7 @@ import br.com.tarefas.controller.response.TarefaResponse;
 import br.com.tarefas.model.Tarefa;
 import br.com.tarefas.model.TarefaStatus;
 import br.com.tarefas.services.TarefaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/tarefas")
@@ -60,7 +61,7 @@ public class TarefaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<EntityModel<TarefaResponse>> salvarNovaTarefa(@RequestBody TarefaResquest tarefaReq) {
+	public ResponseEntity<EntityModel<TarefaResponse>> salvarNovaTarefa(@Valid @RequestBody TarefaResquest tarefaReq) {
 		Tarefa tarefa = modelMapper.map(tarefaReq, Tarefa.class);
 		Tarefa tarefaSalva = service.salvarTarefa(tarefa);
 

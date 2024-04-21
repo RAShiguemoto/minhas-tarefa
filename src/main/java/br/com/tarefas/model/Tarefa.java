@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -29,6 +30,7 @@ public class Tarefa {
 	@Enumerated(EnumType.STRING)
 	private TarefaStatus tarefaStatus = TarefaStatus.ABERTO;
 	
+	@FutureOrPresent
 	private LocalDate dataEntrega;
 	
 	private boolean visivel;
