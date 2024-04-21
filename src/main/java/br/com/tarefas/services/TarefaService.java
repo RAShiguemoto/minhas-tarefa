@@ -62,7 +62,7 @@ public class TarefaService {
 		Tarefa tarefa = getTarefaPorId(id);
 		
 		if (TarefaStatus.CONCLUIDA.equals(tarefa.getTarefaStatus()))
-			throw new TarefaStatusException();
+			throw new TarefaStatusException("Não é possível cancelar uma tarefa concluída.");
 		
 		tarefa.setTarefaStatus(TarefaStatus.CANCELADA);
 		
